@@ -5,9 +5,9 @@ import HoriziontalNameScroll from "./components/HoriziontalNameScroll";
 import TelegramForm from "./components/TelegramForm";
 
 const StBanner = styled.div`
-  background-image: url("./assets/images/chim-ha-ha.png");
+  background-image: url("../assets/images/chim-ha-ha.png");
   text-align: center;
-  margin-top: 40px;
+  padding: 40px;
 `;
 
 const StTitle = styled.h1`

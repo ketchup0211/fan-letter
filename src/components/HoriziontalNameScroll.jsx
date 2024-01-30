@@ -48,7 +48,7 @@ function HoriziontalNameScroll() {
   return (
     <HorizontalScrollBox>
       {chimWorldCharacters.map((character) => (
-        <NameBox>{character}</NameBox>
+        <NameBox key={character}>{character}</NameBox>
       ))}
     </HorizontalScrollBox>
   );

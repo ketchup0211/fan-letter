@@ -22,20 +22,30 @@ const Sender = styled.p`
   text-align: right;
   font-size: 21px;
   font-family: NEXON Lv2 Gothic;
-  margin-top: 12px;
+  margin-top: 20px;
+  & * {
+    font-family: NEXON Lv2 Gothic;
+    border-width: 0px;
+    &:focus {
+      outline: none;
+    }
+    font-size: 18px;
+    width: 190px;
+  }
 `;
 
-const Message = styled.input`
-  padding: 10px 0px 3px 5px;
+const Message = styled.textarea`
+  padding: 10px 0px 0px 0px;
   margin-top: 12px;
-  margin-left: 30px;
-  margin-right: 30px;
   font-size: 16px;
   border-width: 0px 0px 1px;
+  resize: none;
+  height: auto;
   &:focus {
     outline: none;
   }
   overflow: hidden;
+  font-family: NEXON Lv2 Gothic;
 `;
 
 const SubmitBtn = styled.button`
@@ -54,13 +64,21 @@ const SubmitBtn = styled.button`
 function TelegramForm() {
   return (
     <TelegramBox>
-      <Receiver>TO. 침착맨 님께</Receiver>
+      <Receiver>To. 침착맨 님께</Receiver>
       <Message
         type="text"
         placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
         maxLength={150}
+        rows={1}
       />
-      <Sender>FROM. 스페이스와 함께 "하늘물결"</Sender>
+      <Sender>
+        From.{" "}
+        <input
+          type="text"
+          placeholder="닉네임(최대 10자)"
+          maxLength={10}
+        ></input>
+      </Sender>
     </TelegramBox>
   );
 }
