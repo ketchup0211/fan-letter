@@ -1,13 +1,17 @@
 import { useState } from "react";
 import chimMap from "./assets/chim-ha-ha.png";
-import "./App.css";
+import styled from "styled-components";
+
+const StBanner = styled.div`
+  background-image: url("./assets/chim-ha-ha.png");
+  width: 100vw;
+  height: 100vh;
+`;
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <img src={chimMap} alt="chim-ha-ha-map"></img>
+      <StBanner />
     </>
   );
 }
