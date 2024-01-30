@@ -2,9 +2,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import "../fonts.css";
 
-const TelegramBox = styled.div`
+const TelegramBox = styled.form`
   margin: 31.5px;
-
+  margin-bottom: 50px;
   border: 2px solid black;
   border-radius: 8px;
   padding: 20px;
@@ -37,14 +37,19 @@ const Sender = styled.p`
 const Message = styled.textarea`
   padding: 10px 0px 0px 0px;
   margin-top: 12px;
-  font-size: 16px;
-  border-width: 0px 0px 1px;
+  font-size: 18px;
+  text-indent: 10px;
+  border: 0px;
+  height: 100px;
   resize: none;
   height: auto;
   &:focus {
     outline: none;
+    border-width: 0px;
+    &::placeholder {
+      color: transparent;
+    }
   }
-  overflow: hidden;
   font-family: NEXON Lv2 Gothic;
 `;
 
@@ -52,13 +57,17 @@ const SubmitBtn = styled.button`
   align-self: flex-end;
   border: 2px solid black;
   background-color: white;
-  font-size: 15px;
+  font-size: 20px;
   font-family: NEXON Lv2 Gothic;
   border-radius: 8px;
   padding: 3px;
   margin-top: 20px;
-  width: 100px;
-  height: 30px;
+  width: 100%;
+  height: 50px;
+  &:hover {
+    cursor: pointer;
+    background-color: #fca600;
+  }
 `;
 
 function TelegramForm() {
@@ -79,6 +88,7 @@ function TelegramForm() {
           maxLength={10}
         ></input>
       </Sender>
+      <SubmitBtn type="submit">전송하기</SubmitBtn>
     </TelegramBox>
   );
 }

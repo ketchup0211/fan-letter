@@ -3,16 +3,18 @@ import styled from "styled-components";
 import "./fonts.css";
 import HoriziontalNameScroll from "./components/HoriziontalNameScroll";
 import TelegramForm from "./components/TelegramForm";
+import TelegramList from "./components/TelegramList";
 
 const StBanner = styled.div`
-  background-image: url("../assets/images/chim-ha-ha.png");
+  background-image: url("public/images/chim-ha-ha.png");
   text-align: center;
-  padding: 40px;
+  padding: 60px;
+  border-bottom: 3px dashed black;
 `;
 
 const StTitle = styled.h1`
   font-family: GangwonEduPowerExtraBoldA;
-  font-size: 60px;
+  font-size: 80px;
 `;
 
 const StSubTitle = styled.p`
@@ -30,6 +32,7 @@ function App() {
       </StBanner>
       <HoriziontalNameScroll />
       <TelegramForm />
+      <TelegramList />
     </>
   );
 }

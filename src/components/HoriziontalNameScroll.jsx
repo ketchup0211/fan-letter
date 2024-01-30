@@ -21,6 +21,7 @@ const NameBox = styled.button`
   width: 100px;
   &:hover {
     background-color: #fca600;
+    cursor: pointer;
   }
 `;
 
