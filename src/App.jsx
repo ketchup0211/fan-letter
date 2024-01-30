@@ -1,17 +1,35 @@
 import { useState } from "react";
-import chimMap from "./assets/chim-ha-ha.png";
 import styled from "styled-components";
+import "./fonts.css";
+import HoriziontalNameScroll from "./components/HoriziontalNameScroll";
+import TelegramForm from "./components/TelegramForm";
 
 const StBanner = styled.div`
-  background-image: url("./assets/chim-ha-ha.png");
-  width: 100vw;
-  height: 100vh;
+  background-image: url("./assets/images/chim-ha-ha.png");
+  text-align: center;
+  margin-top: 40px;
+`;
+
+const StTitle = styled.h1`
+  font-family: GangwonEduPowerExtraBoldA;
+  font-size: 60px;
+`;
+
+const StSubTitle = styled.p`
+  margin-top: 6px;
+  font-family: NEXON Lv2 Gothic;
+  font-size: 20px;
 `;
 
 function App() {
   return (
     <>
-      <StBanner />
+      <StBanner>
+        <StTitle>침하하</StTitle>
+        <StSubTitle>17개 국에 전보 보내기</StSubTitle>
+      </StBanner>
+      <HoriziontalNameScroll />
+      <TelegramForm />
     </>
   );
 }
