@@ -13,7 +13,7 @@ const Telegrams = styled.div`
   }
   background-color: #f6ebe2;
 `;
-function TelegramList() {
+function TelegramList({ about }) {
   return (
     <>
       <Telegrams>

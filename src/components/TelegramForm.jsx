@@ -70,22 +70,48 @@ const SubmitBtn = styled.button`
   }
 `;
 
-function TelegramForm() {
+function TelegramForm({ receiver }) {
+  const [message, setMessage] = useState("");
+  const [nickname, setNickname] = useState("");
+  const onMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
+  const onNicknameChange = (event) => {
+    setNickname(event.target.value);
+  };
+
+  const validCheck = () => {
+    !receiver
+      ? window.alert("수신자를 선택해주세요")
+      : message === ""
+      ? window.alert("메세지를 입력해주세요")
+      : nickname === ""
+      ? window.alert("송신자를 입력헤주세요")
+      : null;
+  };
   return (
-    <TelegramBox>
-      <Receiver>To. 침착맨 님께</Receiver>
+    <TelegramBox onSubmit={validCheck}>
+      <Receiver>To. {receiver || "NULL"} 님께</Receiver>
       <Message
         type="text"
+        name="message"
         placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
+        onChange={onMessageChange}
         maxLength={150}
         rows={1}
+        value={message}
+        required
       />
       <Sender>
         From.{" "}
         <input
           type="text"
+          name="nickname"
           placeholder="닉네임(최대 10자)"
+          onChange={onNicknameChange}
           maxLength={10}
+          value={nickname}
+          required
         ></input>
       </Sender>
       <SubmitBtn type="submit">전송하기</SubmitBtn>
