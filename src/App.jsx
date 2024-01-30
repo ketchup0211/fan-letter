@@ -1,13 +1,34 @@
 import { useState } from "react";
-import chimMap from "./assets/chim-ha-ha.png";
-import "./App.css";
+import styled from "styled-components";
+import "./fonts.css";
+import StBody from "./components/StBody";
+
+const StBanner = styled.div`
+  background-image: url("public/images/chim-ha-ha.png");
+  text-align: center;
+  padding: 60px;
+  border-bottom: 3px dashed black;
+`;
+
+const StTitle = styled.h1`
+  font-family: GangwonEduPowerExtraBoldA;
+  font-size: 80px;
+`;
+
+const StSubTitle = styled.p`
+  margin-top: 6px;
+  font-family: NEXON Lv2 Gothic;
+  font-size: 20px;
+`;
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <img src={chimMap} alt="chim-ha-ha-map"></img>
+      <StBanner>
+        <StTitle>침하하</StTitle>
+        <StSubTitle>17개 국에 전보 보내기</StSubTitle>
+      </StBanner>
+      <StBody />
     </>
   );
 }
