@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import "../fonts.css";
+import getCurrent from "../shared/getCurrent";
 
 const TelegramBox = styled.form`
   margin: 31.5px;
@@ -80,15 +81,24 @@ function TelegramForm({ receiver }) {
     setNickname(event.target.value);
   };
 
-  const validCheck = () => {
-    !receiver
-      ? window.alert("수신자를 선택해주세요")
-      : message === ""
-      ? window.alert("메세지를 입력해주세요")
-      : nickname === ""
-      ? window.alert("송신자를 입력헤주세요")
-      : null;
+  const addLocalStorage = () => {
+    const currentTime = getCurrent();
+    const newData = {
+      message,
+      sender: nickname,
+      creationTime: currentTime,
+    };
+
+    let oldData = JSON.parse(localStorage.getItem(receiver) || "[]");
+    oldData.push(newData);
+
+    localStorage.setItem(receiver, JSON.stringify(oldData));
   };
+
+  const validCheck = () => {
+    !receiver ? window.alert("수신자를 선택해주세요") : addLocalStorage();
+  };
+
   return (
     <TelegramBox onSubmit={validCheck}>
       <Receiver>To. {receiver || "NULL"} 님께</Receiver>
