@@ -26,7 +26,7 @@ function TelegramList({ about }) {
   return (
     <>
       <Telegrams>
-        {data ? (
+        {data.length > 0 ? (
           data.map((elements) => {
             return (
               <TelegramBox

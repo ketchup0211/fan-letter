@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import "../fonts.css";
-import StBody from "../components/StBody";
 import { useNavigate, useParams } from "react-router-dom";
 const MAIN_COLOR = "#f6ebe2";
 
@@ -31,15 +30,84 @@ const StSubTitle = styled.p`
 `;
 function Telegram() {
   const params = useParams();
-
   const navigate = useNavigate();
+
+  // id 값으로 데이터 조회
+  const data = localStorage.getItem(params.receiver);
+  const parsedData = JSON.parse(data);
+  const { sender, message, creationTime } = parsedData.filter(
+    (e) => e.id === params.id
+  )[0];
+
+  const onDelete = () => {
+    let confirm = window.confirm(
+      "삭제하시겠습니까? (삭제한 전보는 되돌릴 수 없습니다)"
+    );
+    if (confirm) {
+      const data = localStorage.getItem(params.receiver);
+
+      if (data) {
+        const parsedData = JSON.parse(data);
+        const updatedData = parsedData.filter((e) => e.id !== params.id);
+
+        localStorage.setItem(params.receiver, JSON.stringify(updatedData));
+
+        navigate("/");
+      }
+    }
+  };
+
+  const modifyMessage = (e) => {
+    setmodMessage(e.target.value);
+  };
+
+  const letModified = () => {
+    if (modMessage != message) {
+      const updatedData = parsedData.map((item) =>
+        item.id === params.id ? { ...item, message: modMessage } : item
+      );
+      localStorage.setItem(params.receiver, JSON.stringify(updatedData));
+    } else {
+      alert("아무런 수정사항이 없습니다.");
+    }
+
+    setModify(false);
+  };
+
+  let [modify, setModify] = useState(false);
+  let [modMessage, setmodMessage] = useState(message);
   return (
     <>
       <StBanner>
         <GoHomeBtn onClick={() => navigate("/")}>홈으로</GoHomeBtn>
-        <StSubTitle>이참 님이 {params.receiver} 님에게 보낸 전보</StSubTitle>
+        <StSubTitle>
+          {sender} 님이 {params.receiver} 님에게 보낸 전보
+        </StSubTitle>
       </StBanner>
-      <StBody />
+      <div>
+        <div>
+          <p>Sender. {sender}</p>
+          {modify ? (
+            <textarea
+              type="text"
+              name="message"
+              maxLength={150}
+              value={modMessage}
+              onChange={modifyMessage}
+              placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
+              required
+            />
+          ) : (
+            <p>{message}</p>
+          )}
+        </div>
+        {modify ? (
+          <button onClick={letModified}>수정 완료</button>
+        ) : (
+          <button onClick={() => setModify(true)}>수정</button>
+        )}
+        <button onClick={onDelete}>삭제</button>
+      </div>
     </>
   );
 }

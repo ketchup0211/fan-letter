@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "../fonts.css";
 import StBody from "../components/StBody";
 import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const StBanner = styled.div`
   background-image: url("public/images/chim-ha-ha.png");
@@ -27,6 +28,7 @@ const StSubTitle = styled.p`
 `;
 
 function Home() {
+  const params = useParams();
   return (
     <>
       <StBanner>
