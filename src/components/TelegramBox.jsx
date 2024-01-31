@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../fonts.css";
 
 const TelegramContainer = styled.div`
   margin: 0px 31.5px 10px 31.5px;
+  padding: 3px;
   background-color: black;
   border-radius: 10px;
   display: flex;
@@ -26,6 +28,7 @@ const ContentsContainer = styled.div`
   line-height: 23px;
   text-align: left;
   min-height: 90px;
+  min-width: 0px;
 `;
 
 const Sender = styled.p`
@@ -39,11 +42,18 @@ const Time = styled.p`
 const Message = styled.p`
   margin-top: 5px;
   font-size: 16px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 `;
-function TelegramBox({ sender, message, creationTime }) {
+function TelegramBox({ id, sender, message, creationTime, receiver }) {
+  const navigate = useNavigate();
   return (
     <>
-      <TelegramContainer>
+      <TelegramContainer
+        onClick={() => navigate(`telegrams/${receiver}/${id}`)}
+      >
         <ProfileImg src="/images/profile.jpg" alt="profile" />
         <ContentsContainer>
           <Sender>{sender}</Sender>

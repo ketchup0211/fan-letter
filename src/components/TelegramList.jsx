@@ -1,9 +1,9 @@
 import { useState } from "react";
+
 import styled from "styled-components";
 import "../fonts.css";
 import TelegramBox from "./TelegramBox.jsx";
-import getLocalData from "../shared/getLocalData.jsx";
-import TelegramForm from "./TelegramForm.jsx";
+import getLocalData from "./getLocalData.jsx";
 
 const Telegrams = styled.div`
   height: 500px;
@@ -28,13 +28,14 @@ function TelegramList({ about }) {
       <Telegrams>
         {data ? (
           data.map((elements) => {
-            console.log("e => ", elements);
             return (
               <TelegramBox
                 key={elements.id}
                 sender={elements.sender}
                 message={elements.message}
                 creationTime={elements.creationTime}
+                id={elements.id}
+                receiver={about}
               ></TelegramBox>
             );
           })

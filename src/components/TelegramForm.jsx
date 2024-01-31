@@ -2,7 +2,7 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 import "../fonts.css";
-import getCurrentTime from "../shared/getCurrentTime";
+import getCurrentTime from "./getCurrentTime";
 
 const TelegramBox = styled.form`
   margin: 31.5px;
