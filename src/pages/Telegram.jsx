@@ -67,11 +67,13 @@ function Telegram() {
         item.id === params.id ? { ...item, message: modMessage } : item
       );
       localStorage.setItem(params.receiver, JSON.stringify(updatedData));
+      alert("수정되었습니다.");
     } else {
       alert("아무런 수정사항이 없습니다.");
     }
 
     setModify(false);
+    navigate("/");
   };
 
   let [modify, setModify] = useState(false);

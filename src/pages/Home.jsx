@@ -7,6 +7,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const StBanner = styled.div`
   background-image: url("public/images/chim-ha-ha.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
   text-align: center;
   padding: 60px;
   border-bottom: 3px dashed black;
