@@ -22,15 +22,15 @@ const ContentsContainer = styled.div`
   line-height: 20px;
   text-align: left;
 `;
-function TelegramBox() {
+function TelegramBox({ sender, message, creationTime }) {
   return (
     <>
       <TelegramContainer>
         <ProfileImg src="/images/profile.jpg" alt="profile" />
         <ContentsContainer>
-          <p>닉네임</p>
-          <p>time stamp</p>
-          <p>메세지 내용</p>
+          <p>{sender}</p>
+          <p>{creationTime}</p>
+          <p>{message}</p>
         </ContentsContainer>
       </TelegramContainer>
     </>

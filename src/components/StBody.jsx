@@ -32,6 +32,7 @@ function StBody() {
       <HorizontalScrollBox
         characters={chimWorldCharacters}
         setReceiver={setReceiver}
+        receiver={receiver}
       />
       <TelegramForm receiver={receiver} />
       <TelegramList about={receiver} />

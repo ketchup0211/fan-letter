@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import "../fonts.css";
 import StBody from "../components/StBody";
+import { Link } from "react-router-dom";
 
 const StBanner = styled.div`
   background-image: url("public/images/chim-ha-ha.png");
@@ -13,6 +14,10 @@ const StBanner = styled.div`
 const StTitle = styled.h1`
   font-family: GangwonEduPowerExtraBoldA;
   font-size: 80px;
+  & * {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const StSubTitle = styled.p`
@@ -25,7 +30,11 @@ function Home() {
   return (
     <>
       <StBanner>
-        <StTitle>침하하</StTitle>
+        <StTitle title="침하하 바로가기">
+          <Link to="https://chimhaha.net" target="_blank">
+            침하하
+          </Link>
+        </StTitle>
         <StSubTitle>17개 국에 전보 보내기</StSubTitle>
       </StBanner>
       <StBody />

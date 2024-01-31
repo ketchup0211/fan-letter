@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import "../fonts.css";
 import TelegramBox from "./TelegramBox.jsx";
+import getLocalData from "../shared/getLocalData.jsx";
+import TelegramForm from "./TelegramForm.jsx";
 
 const Telegrams = styled.div`
   height: 500px;
@@ -12,17 +14,33 @@ const Telegrams = styled.div`
     display: none;
   }
   background-color: #f6ebe2;
+  text-align: center;
+`;
+
+const AlertMessage = styled.div`
+  color: black;
+  font-size: 18px;
 `;
 function TelegramList({ about }) {
+  const data = getLocalData(about);
   return (
     <>
       <Telegrams>
-        <TelegramBox></TelegramBox>
-        <TelegramBox></TelegramBox>
-        <TelegramBox></TelegramBox>
-        <TelegramBox></TelegramBox>
-        <TelegramBox></TelegramBox>
-        <TelegramBox></TelegramBox>
+        {data ? (
+          data.map((elements) => {
+            console.log("e => ", elements);
+            return (
+              <TelegramBox
+                key={elements.id}
+                sender={elements.sender}
+                message={elements.message}
+                creationTime={elements.creationTime}
+              ></TelegramBox>
+            );
+          })
+        ) : (
+          <AlertMessage>도착한 전보가 없습니다.</AlertMessage>
+        )}
       </Telegrams>
     </>
   );

@@ -14,7 +14,7 @@ const NameContainer = styled.div`
 `;
 
 const NameBox = styled.button`
-  background-color: white;
+  background-color: ${({ selected }) => (selected ? "#fca600" : "white")};
   border: 2px solid black;
   border-radius: 5px;
   font-size: 20px;
@@ -28,11 +28,16 @@ const NameBox = styled.button`
   }
 `;
 
-function HorizontalScrollBox({ characters, setReceiver }) {
+function HorizontalScrollBox({ characters, setReceiver, receiver }) {
+  let selected = false;
   return (
     <NameContainer>
       {characters.map((character) => (
-        <NameBox onClick={() => setReceiver(character)} key={character}>
+        <NameBox
+          onClick={() => setReceiver(character)}
+          selected={receiver === character}
+          key={character}
+        >
           {character}
         </NameBox>
       ))}
