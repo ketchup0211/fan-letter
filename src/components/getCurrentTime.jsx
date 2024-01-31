@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-function getCurrent() {
+function getCurrentTime() {
   let today = new Date();
   return today.toLocaleString();
 }
 
-export default getCurrent;
+export default getCurrentTime;

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 import "../fonts.css";
-import getCurrent from "../shared/getCurrent";
+import getCurrentTime from "./getCurrentTime";
 
 const TelegramBox = styled.form`
   margin: 31.5px;
@@ -82,15 +83,17 @@ function TelegramForm({ receiver }) {
   };
 
   const addLocalStorage = () => {
-    const currentTime = getCurrent();
+    const currentTime = getCurrentTime();
+    const id = uuid();
     const newData = {
       message,
       sender: nickname,
       creationTime: currentTime,
+      id,
     };
 
     let oldData = JSON.parse(localStorage.getItem(receiver) || "[]");
-    oldData.push(newData);
+    oldData.unshift(newData);
 
     localStorage.setItem(receiver, JSON.stringify(oldData));
   };
