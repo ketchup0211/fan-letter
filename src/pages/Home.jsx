@@ -4,6 +4,10 @@ import "../fonts.css";
 import StBody from "../components/StBody";
 import { Link } from "react-router-dom";
 
+/*
+ *  Styled Components
+ */
+
 const StBanner = styled.div`
   background-image: url("images/chim-ha-ha.png");
   background-repeat: no-repeat;

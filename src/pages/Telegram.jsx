@@ -4,6 +4,10 @@ import "../fonts.css";
 import { useNavigate, useParams } from "react-router-dom";
 const MAIN_COLOR = "#f6ebe2";
 
+/*
+ *  Styled Components
+ */
+
 const StBanner = styled.div`
   text-align: center;
   padding: 100px 30px 30px;
@@ -83,17 +87,27 @@ const StButton = styled.button`
   border: 2px solid black;
   font-family: NEXON Lv2 Gothic;
 `;
+
+/*
+ *  Main Component
+ */
 function Telegram() {
   const params = useParams();
   const navigate = useNavigate();
 
-  // id 값으로 데이터 조회
+  // Data Check
   const data = localStorage.getItem(params.receiver);
   const parsedData = JSON.parse(data);
   const { sender, message, creationTime } = parsedData.filter(
     (e) => e.id === params.id
   )[0];
 
+  //  State for check modify-ing
+  let [modify, setModify] = useState(false);
+  //  State for message modify
+  let [modMessage, setmodMessage] = useState(message);
+
+  //  Delete Messgae
   const onDelete = () => {
     let confirm = window.confirm(
       "삭제하시겠습니까? (삭제한 전보는 되돌릴 수 없습니다)"
@@ -112,10 +126,12 @@ function Telegram() {
     }
   };
 
+  //  Modify-ing Message
   const modifyMessage = (e) => {
     setmodMessage(e.target.value);
   };
 
+  // Change Local Storage Data(Message)
   const letModified = () => {
     if (modMessage != message) {
       const updatedData = parsedData.map((item) =>
@@ -131,8 +147,7 @@ function Telegram() {
     navigate("/");
   };
 
-  let [modify, setModify] = useState(false);
-  let [modMessage, setmodMessage] = useState(message);
+  //  Main
   return (
     <>
       <StBanner>
@@ -141,11 +156,12 @@ function Telegram() {
           {sender} 님이 {params.receiver} 님에게 보낸 전보
         </StSubTitle>
       </StBanner>
+
       <TelegramContainer>
         <Sender>Sender. {sender}</Sender>
+
         {modify ? (
           <ModifyField
-            //onClick={dynamicHeight}
             type="text"
             name="message"
             maxLength={150}
@@ -158,6 +174,7 @@ function Telegram() {
         ) : (
           <MessageField>{message}</MessageField>
         )}
+
         <BtnContainer>
           {modify ? (
             <StButton onClick={letModified}>수정 완료</StButton>
