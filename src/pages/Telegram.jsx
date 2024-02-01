@@ -3,7 +3,6 @@ import styled from "styled-components";
 import "../fonts.css";
 import { useNavigate, useParams } from "react-router-dom";
 const MAIN_COLOR = "#f6ebe2";
-const DEFAULT_HEIGHT = 130;
 
 const StBanner = styled.div`
   text-align: center;
@@ -116,11 +115,6 @@ function Telegram() {
   const modifyMessage = (e) => {
     setmodMessage(e.target.value);
   };
-
-  // const dynamicHeight = (e) => {
-  //   e.target.style.height = 0;
-  //   e.target.style.height = DEFAULT_HEIGHT + e.target.scrollHeight + "px";
-  // };
 
   const letModified = () => {
     if (modMessage != message) {

@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 import "../fonts.css";
 import getCurrentTime from "./getCurrentTime";
+const DEFAULT_HEIGHT = 20;
 
 const TelegramBox = styled.form`
   margin: 31.5px;
@@ -46,7 +47,6 @@ const Message = styled.textarea`
   font-size: 18px;
   text-indent: 10px;
   border: 0px;
-  height: 100px;
   resize: none;
   height: auto;
   &:focus {
@@ -80,10 +80,17 @@ function TelegramForm({ receiver }) {
   const [message, setMessage] = useState("");
   const [nickname, setNickname] = useState("");
   const onMessageChange = (event) => {
+    dynamicHeight(event);
     setMessage(event.target.value);
   };
   const onNicknameChange = (event) => {
     setNickname(event.target.value);
+  };
+  const dynamicHeight = (event) => {
+    //  dynamic height
+    event.target.style.height = 0;
+    event.target.style.height =
+      DEFAULT_HEIGHT + event.target.scrollHeight + "px";
   };
 
   const addLocalStorage = () => {
@@ -115,7 +122,6 @@ function TelegramForm({ receiver }) {
         placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
         onChange={onMessageChange}
         maxLength={150}
-        rows={1}
         value={message}
         required
       />
