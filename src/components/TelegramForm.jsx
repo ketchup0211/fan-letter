@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "../fonts.css";
 import getCurrentTime from "./getCurrentTime";
@@ -79,6 +80,8 @@ const SubmitBtn = styled.button`
 function TelegramForm({ receiver }) {
   const [message, setMessage] = useState("");
   const [nickname, setNickname] = useState("");
+  const navigate = useNavigate();
+
   const onMessageChange = (event) => {
     dynamicHeight(event);
     setMessage(event.target.value);
