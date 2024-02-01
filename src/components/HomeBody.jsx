@@ -25,7 +25,7 @@ const chimWorldCharacters = [
   "심윤수",
 ];
 
-function StBody() {
+function HomeBody() {
   const [receiver, setReceiver] = useState();
   return (
     <>
@@ -40,4 +40,4 @@ function StBody() {
   );
 }
 
-export default StBody;
+export default HomeBody;

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home.jsx";
-import Telegram from "../pages/Telegram.jsx";
-import ScrollToTop from "../components/ScrollToTop";
+import Detail from "../pages/Detail.jsx";
+import ScrollToTop from "../components/modules/ScrollToTop";
 
 const Router = () => {
   return (
@@ -9,7 +9,7 @@ const Router = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="telegrams/:receiver/:id" element={<Telegram />} />
+        <Route path="detail/:receiver/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );

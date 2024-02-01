@@ -51,9 +51,7 @@ function TelegramBox({ id, sender, message, creationTime, receiver }) {
   const navigate = useNavigate();
   return (
     <>
-      <TelegramContainer
-        onClick={() => navigate(`telegrams/${receiver}/${id}`)}
-      >
+      <TelegramContainer onClick={() => navigate(`detail/${receiver}/${id}`)}>
         <ProfileImg src="/images/profile.jpg" alt="profile" />
         <ContentsContainer>
           <Sender>{sender}</Sender>
