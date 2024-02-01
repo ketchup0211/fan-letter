@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "../fonts.css";
-import getCurrentTime from "./getCurrentTime";
+import getCurrentTime from "./modules/getCurrentTime";
 const DEFAULT_HEIGHT = 20;
 
 const TelegramBox = styled.form`

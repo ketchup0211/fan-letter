@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import "../fonts.css";
 import TelegramBox from "./TelegramBox.jsx";
-import getLocalData from "./getLocalData.jsx";
+import getLocalData from "./modules/getLocalData.jsx";
 
 const Telegrams = styled.div`
   height: 500px;
