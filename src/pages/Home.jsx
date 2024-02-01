@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 
 const StBanner = styled.div`
-  background-image: url("public/images/chim-ha-ha.png");
+  background-image: url("images/chim-ha-ha.png");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;

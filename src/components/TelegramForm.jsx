@@ -25,11 +25,15 @@ const Sender = styled.p`
   font-size: 21px;
   font-family: NEXON Lv2 Gothic;
   margin-top: 20px;
+
   & * {
     font-family: NEXON Lv2 Gothic;
     border-width: 0px;
     &:focus {
       outline: none;
+      &::placeholder {
+        color: transparent;
+      }
     }
     font-size: 18px;
     width: 190px;
@@ -121,6 +125,7 @@ function TelegramForm({ receiver }) {
           type="text"
           name="nickname"
           placeholder="닉네임(최대 10자)"
+          autoComplete="off"
           onChange={onNicknameChange}
           maxLength={10}
           value={nickname}

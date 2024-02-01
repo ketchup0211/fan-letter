@@ -3,12 +3,12 @@ import styled from "styled-components";
 import "../fonts.css";
 import { useNavigate, useParams } from "react-router-dom";
 const MAIN_COLOR = "#f6ebe2";
+const DEFAULT_HEIGHT = 130;
 
 const StBanner = styled.div`
-  background-image: url("public/images/chim-ha-ha.png");
   text-align: center;
-  padding: 60px;
-  border-bottom: 3px dashed black;
+  padding: 100px 30px 30px;
+  margin-bottom: 10px;
 `;
 
 const GoHomeBtn = styled.button`
@@ -24,9 +24,65 @@ const GoHomeBtn = styled.button`
 `;
 
 const StSubTitle = styled.p`
-  margin-top: 6px;
+  font-family: NEXON Lv2 Gothic;
+  font-size: 30px;
+`;
+
+const Sender = styled.p`
   font-family: NEXON Lv2 Gothic;
   font-size: 20px;
+`;
+const ModifyField = styled.textarea`
+  margin: 10px 0px;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 20px;
+  border: 2px solid black;
+  height: 130px;
+  width: 100%;
+  resize: none;
+  background-color: white;
+  &:focus {
+    outline-color: #f39009;
+    &::placeholder {
+      color: transparent;
+    }
+  }
+  font-family: NEXON Lv2 Gothic;
+`;
+
+const MessageField = styled.p`
+  margin: 10px 0px;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 20px;
+  background-color: white;
+  border: 2px solid black;
+  max-width: 650px;
+  font-family: NEXON Lv2 Gothic;
+`;
+
+const TelegramContainer = styled.div`
+  padding: 20px;
+  margin: 0px auto;
+  width: 600px;
+  background-color: #f6ebe2;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const StButton = styled.button`
+  display: inline;
+  flex-basis: 45%;
+  height: 35px;
+  border: 2px solid black;
+  font-family: NEXON Lv2 Gothic;
 `;
 function Telegram() {
   const params = useParams();
@@ -61,6 +117,11 @@ function Telegram() {
     setmodMessage(e.target.value);
   };
 
+  // const dynamicHeight = (e) => {
+  //   e.target.style.height = 0;
+  //   e.target.style.height = DEFAULT_HEIGHT + e.target.scrollHeight + "px";
+  // };
+
   const letModified = () => {
     if (modMessage != message) {
       const updatedData = parsedData.map((item) =>
@@ -86,30 +147,36 @@ function Telegram() {
           {sender} 님이 {params.receiver} 님에게 보낸 전보
         </StSubTitle>
       </StBanner>
-      <div>
-        <div>
-          <p>Sender. {sender}</p>
-          {modify ? (
-            <textarea
-              type="text"
-              name="message"
-              maxLength={150}
-              value={modMessage}
-              onChange={modifyMessage}
-              placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
-              required
-            />
-          ) : (
-            <p>{message}</p>
-          )}
-        </div>
+      <TelegramContainer>
+        <Sender>Sender. {sender}</Sender>
         {modify ? (
-          <button onClick={letModified}>수정 완료</button>
+          <ModifyField
+            //onClick={dynamicHeight}
+            type="text"
+            name="message"
+            maxLength={150}
+            value={modMessage}
+            onChange={modifyMessage}
+            placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
+            autoFocus
+            required
+          />
         ) : (
-          <button onClick={() => setModify(true)}>수정</button>
+          <MessageField>{message}</MessageField>
         )}
-        <button onClick={onDelete}>삭제</button>
-      </div>
+        <BtnContainer>
+          {modify ? (
+            <StButton onClick={letModified}>수정 완료</StButton>
+          ) : (
+            <StButton onClick={() => setModify(true)}>수정</StButton>
+          )}
+          {modify ? (
+            <StButton onClick={() => setModify(false)}>취소</StButton>
+          ) : (
+            <StButton onClick={onDelete}>삭제</StButton>
+          )}
+        </BtnContainer>
+      </TelegramContainer>
     </>
   );
 }
