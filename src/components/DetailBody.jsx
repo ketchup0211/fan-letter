@@ -1,70 +1,12 @@
-import { useState } from "react";
-import styled from "styled-components";
-import "../fonts.css";
-import { useNavigate, useParams } from "react-router-dom";
-const MAIN_COLOR = "#f6ebe2";
-import DetailHeader from "../components/DetailHeader";
+import {
+  TelegramContainer,
+  TelegramSender,
+  ModifyField,
+  MessageField,
+  BtnContainer,
+  Button,
+} from "./DetailStyles";
 
-/*
- *  Styled Components
- */
-
-const Sender = styled.p`
-  font-family: NEXON Lv2 Gothic;
-  font-size: 20px;
-`;
-const ModifyField = styled.textarea`
-  margin: 10px 0px;
-  padding: 10px;
-  font-size: 16px;
-  line-height: 20px;
-  border: 2px solid black;
-  height: 130px;
-  width: 100%;
-  resize: none;
-  background-color: white;
-  &:focus {
-    outline-color: #f39009;
-    &::placeholder {
-      color: transparent;
-    }
-  }
-  font-family: NEXON Lv2 Gothic;
-`;
-
-const MessageField = styled.p`
-  margin: 10px 0px;
-  padding: 10px;
-  font-size: 16px;
-  line-height: 20px;
-  background-color: white;
-  border: 2px solid black;
-  max-width: 650px;
-  font-family: NEXON Lv2 Gothic;
-`;
-
-const TelegramContainer = styled.div`
-  padding: 20px;
-  margin: 0px auto;
-  width: 600px;
-  background-color: #f6ebe2;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid black;
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const StButton = styled.button`
-  display: inline;
-  flex-basis: 45%;
-  height: 35px;
-  border: 2px solid black;
-  font-family: NEXON Lv2 Gothic;
-`;
 function DetailBody({
   sender,
   modify,
@@ -79,7 +21,7 @@ function DetailBody({
 }) {
   return (
     <TelegramContainer>
-      <Sender>Sender. {sender}</Sender>
+      <TelegramSender>Sender. {sender}</TelegramSender>
 
       {modify ? (
         <ModifyField
@@ -98,21 +40,21 @@ function DetailBody({
 
       <BtnContainer>
         {modify ? (
-          <StButton onClick={letModified}>수정 완료</StButton>
+          <Button onClick={letModified}>수정 완료</Button>
         ) : (
-          <StButton onClick={setOnModifing}>수정</StButton>
+          <Button onClick={setOnModifing}>수정</Button>
         )}
         {modify ? (
-          <StButton
+          <Button
             onClick={() => {
               setModify(false);
               setmodMessage(message);
             }}
           >
             취소
-          </StButton>
+          </Button>
         ) : (
-          <StButton onClick={onDelete}>삭제</StButton>
+          <Button onClick={onDelete}>삭제</Button>
         )}
       </BtnContainer>
     </TelegramContainer>

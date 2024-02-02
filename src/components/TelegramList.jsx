@@ -1,26 +1,9 @@
 import { useState } from "react";
-
-import styled from "styled-components";
+import { Telegrams, AlertMessage } from "./HomeStyles.jsx";
 import "../fonts.css";
 import TelegramBox from "./TelegramBox.jsx";
 import getLocalData from "./modules/getLocalData.jsx";
 
-const Telegrams = styled.div`
-  height: 500px;
-  padding-top: 31.5px;
-  border-top: 3px dashed black;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  background-color: #f6ebe2;
-  text-align: center;
-`;
-
-const AlertMessage = styled.div`
-  color: black;
-  font-size: 18px;
-`;
 function TelegramList({ about }) {
   const data = getLocalData(about);
   return (

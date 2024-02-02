@@ -1,18 +1,9 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import charactersDataList from "../shared/charactersDataList";
 import styled from "styled-components";
 import "../fonts.css";
-import TelegramForm from "./TelegramForm";
-import TelegramList from "./TelegramList";
-
-const NameContainer = styled.div`
-  white-space: nowrap;
-  overflow-x: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  margin: 50px 30px 0px 30px;
-`;
+import { NameContainer } from "./HomeStyles";
 
 const NameBox = styled.button`
   background-color: ${({ selected }) => (selected ? "#fca600" : "white")};
@@ -29,11 +20,11 @@ const NameBox = styled.button`
   }
 `;
 
-function HorizontalScrollBox({ characters, setReceiver, receiver }) {
+function HorizontalScrollBox({ setReceiver, receiver }) {
   let selected = false;
   return (
     <NameContainer>
-      {characters.map((character) => (
+      {charactersDataList.map((character) => (
         <NameBox
           onClick={() => setReceiver(character)}
           selected={receiver === character}

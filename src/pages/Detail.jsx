@@ -53,7 +53,7 @@ function Detail() {
   };
   // Change Local Storage Data(Message)
   const letModified = () => {
-    if (modMessage != message) {
+    if (modMessage !== message) {
       const updatedData = parsedData.map((item) =>
         item.id === params.id ? { ...item, message: modMessage } : item
       );

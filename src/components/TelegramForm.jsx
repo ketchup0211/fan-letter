@@ -1,81 +1,15 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
-import "../fonts.css";
+import {
+  FormContainer,
+  FormReceiver,
+  FormSender,
+  FormMessage,
+  SubmitBtn,
+} from "./HomeStyles";
 import getCurrentTime from "./modules/getCurrentTime";
 const DEFAULT_HEIGHT = 20;
-
-const TelegramBox = styled.form`
-  margin: 31.5px;
-  margin-bottom: 50px;
-  border: 2px solid black;
-  border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Receiver = styled.p`
-  text-align: left;
-  font-size: 21px;
-  font-family: NEXON Lv2 Gothic;
-`;
-
-const Sender = styled.p`
-  text-align: right;
-  font-size: 21px;
-  font-family: NEXON Lv2 Gothic;
-  margin-top: 20px;
-
-  & * {
-    font-family: NEXON Lv2 Gothic;
-    border-width: 0px;
-    &:focus {
-      outline: none;
-      &::placeholder {
-        color: transparent;
-      }
-    }
-    font-size: 18px;
-    width: 190px;
-  }
-`;
-
-const Message = styled.textarea`
-  padding: 10px 0px 0px 0px;
-  margin-top: 12px;
-  font-size: 18px;
-  text-indent: 10px;
-  border: 0px;
-  resize: none;
-  height: auto;
-  &:focus {
-    outline: none;
-    border-width: 0px;
-    &::placeholder {
-      color: transparent;
-    }
-  }
-  font-family: NEXON Lv2 Gothic;
-`;
-
-const SubmitBtn = styled.button`
-  align-self: flex-end;
-  border: 2px solid black;
-  background-color: white;
-  font-size: 20px;
-  font-family: NEXON Lv2 Gothic;
-  border-radius: 8px;
-  padding: 3px;
-  margin-top: 20px;
-  width: 100%;
-  height: 50px;
-  &:hover {
-    cursor: pointer;
-    background-color: #fca600;
-  }
-`;
 
 function TelegramForm({ receiver }) {
   const [message, setMessage] = useState("");
@@ -117,9 +51,9 @@ function TelegramForm({ receiver }) {
   };
 
   return (
-    <TelegramBox onSubmit={validCheck}>
-      <Receiver>To. {receiver || "NULL"} 님께</Receiver>
-      <Message
+    <FormContainer onSubmit={validCheck}>
+      <FormReceiver>To. {receiver || "NULL"} 님께</FormReceiver>
+      <FormMessage
         type="text"
         name="message"
         placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
@@ -128,7 +62,7 @@ function TelegramForm({ receiver }) {
         value={message}
         required
       />
-      <Sender>
+      <FormSender>
         From.{" "}
         <input
           type="text"
@@ -140,9 +74,9 @@ function TelegramForm({ receiver }) {
           value={nickname}
           required
         ></input>
-      </Sender>
+      </FormSender>
       <SubmitBtn type="submit">전송하기</SubmitBtn>
-    </TelegramBox>
+    </FormContainer>
   );
 }
 
