@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import DetailHeader from "../components/DetailHeader";
 import DetailBody from "../components/DetailBody";
-import goHome from "../components/modules/goHome";
 import getLocalData from "../components/modules/getLocalData";
 /*
  *  Main Component
@@ -16,11 +15,7 @@ function Detail() {
   //  Main
   return (
     <>
-      <DetailHeader
-        sender={sender}
-        receiver={params.receiver}
-        goHome={goHome}
-      />
+      <DetailHeader sender={sender} receiver={params.receiver} />
       <DetailBody params={params} sender={sender} message={message} />
     </>
   );

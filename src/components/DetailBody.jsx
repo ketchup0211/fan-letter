@@ -6,10 +6,12 @@ import {
   Button,
 } from "./DetailStyles";
 import { useState } from "react";
-import { onDelete } from "./modules/DetailFunctions";
 import ModifyContainer from "./ModifyContainer";
+import getLocalData from "./modules/getLocalData";
+import { useNavigate } from "react-router-dom";
 
 function DetailBody({ params, sender, message }) {
+  const navigate = useNavigate();
   //  State for check modify-ing
   let [modify, setModify] = useState(false);
   //  State for message modify
@@ -23,7 +25,7 @@ function DetailBody({ params, sender, message }) {
     setModify(true);
   };
   // Change Local Storage Data(Message)
-  const setModified = (params, modMessage, message) => {
+  const setModified = () => {
     const parsedData = getLocalData(params.receiver);
     if (modMessage !== message) {
       const updatedData = parsedData.map((item) =>
@@ -36,7 +38,24 @@ function DetailBody({ params, sender, message }) {
     }
 
     setModify(false);
-    goHome();
+    navigate("/");
+  };
+  const onDelete = () => {
+    let confirm = window.confirm(
+      "삭제하시겠습니까? (삭제한 전보는 되돌릴 수 없습니다)"
+    );
+    if (confirm) {
+      const data = localStorage.getItem(params.receiver);
+
+      if (data) {
+        const parsedData = JSON.parse(data);
+        const updatedData = parsedData.filter((e) => e.id !== params.id);
+
+        localStorage.setItem(params.receiver, JSON.stringify(updatedData));
+
+        navigate("/");
+      }
+    }
   };
   return (
     <TelegramContainer>
@@ -50,11 +69,7 @@ function DetailBody({ params, sender, message }) {
         <MessageField>{message}</MessageField>
       )}
       <BtnContainer>
-        <Button
-          onClick={
-            modify ? setModified(params, modMessage, message) : setEditing
-          }
-        >
+        <Button onClick={modify ? setModified : setEditing}>
           {modify ? "수정 완료" : "수정"}
         </Button>
         <Button
