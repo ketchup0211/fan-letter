@@ -11,17 +11,19 @@ function Detail() {
   // Data Check
   const parsedData = getLocalData(params.receiver);
   const { sender, message } = parsedData.filter((e) => e.id === params.id)[0];
+
   let value = {
     sender: sender,
     receiver: params.receiver,
     message: message,
     id: params.id,
   };
+
   //  Main
   return (
     <DataContext.Provider value={value}>
       <DetailHeader />
-      <DetailBody params={params} sender={sender} message={message} />
+      <DetailBody />
     </DataContext.Provider>
   );
 }

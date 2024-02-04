@@ -48,7 +48,7 @@ const ModifyField = styled.textarea`
   font-family: NEXON Lv2 Gothic;
 `;
 
-const MessageField = styled.p`
+const MessageViewField = styled.p`
   margin: 10px 0px;
   padding: 10px;
   font-size: 16px;
@@ -90,7 +90,7 @@ export {
   TelegramContainer,
   TelegramSender,
   ModifyField,
-  MessageField,
+  MessageViewField,
   BtnContainer,
   Button,
 };

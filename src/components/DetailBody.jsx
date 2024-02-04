@@ -1,34 +1,31 @@
+import { useNavigate } from "react-router-dom";
+import { DataContext } from "../pages/Detail";
+import { useState, useContext, createContext } from "react";
 import {
   TelegramContainer,
   TelegramSender,
-  MessageField,
+  MessageViewField,
   BtnContainer,
   Button,
 } from "./DetailStyles";
-import { useState, useContext } from "react";
-import ModifyContainer from "./ModifyContainer";
+import MessageEditingField from "./MessageEditingField";
 import getLocalData from "./modules/getLocalData";
-import { useNavigate } from "react-router-dom";
-import { DataContext } from "../pages/Detail";
 
+//  DetailBody.jsx
 function DetailBody() {
   const { sender, receiver, message, id } = useContext(DataContext);
   const navigate = useNavigate();
-  //  State for check modify-ing
-  let [modify, setModify] = useState(false);
-  //  State for message modify
-  let [modMessage, setmodMessage] = useState(message);
 
-  //  Modify-ing Message
-  const modifyMessage = (e) => {
-    setmodMessage(e.target.value);
-  };
-  const setEditing = () => {
+  const [modify, setModify] = useState(false);
+  const [modMessage, setModMessage] = useState(message);
+
+  const handleSetEditing = () => {
     setModify(true);
   };
-  // Change Local Storage Data(Message)
-  const setModified = () => {
+
+  const handleSetModified = () => {
     const parsedData = getLocalData(receiver);
+
     if (modMessage !== message) {
       const updatedData = parsedData.map((item) =>
         item.id === id ? { ...item, message: modMessage } : item
@@ -42,53 +39,56 @@ function DetailBody() {
     setModify(false);
     navigate("/");
   };
-  const onDelete = () => {
-    let confirm = window.confirm(
-      "삭제하시겠습니까? (삭제한 전보는 되돌릴 수 없습니다)"
-    );
-    if (confirm) {
-      const data = localStorage.getItem(receiver);
 
-      if (data) {
-        const parsedData = JSON.parse(data);
-        const updatedData = parsedData.filter((e) => e.id !== id);
+  const handleCancelOrDelete = () => {
+    if (modify) {
+      setModify(false);
+      setModMessage(message);
+    } else {
+      const confirmation = window.confirm(
+        "삭제하시겠습니까? (삭제한 전보는 되돌릴 수 없습니다)"
+      );
 
-        localStorage.setItem(receiver, JSON.stringify(updatedData));
+      if (confirmation) {
+        const data = localStorage.getItem(receiver);
 
-        navigate("/");
+        try {
+          const parsedData = JSON.parse(data);
+          const updatedData = parsedData.filter((e) => e.id !== id);
+
+          localStorage.setItem(receiver, JSON.stringify(updatedData));
+          navigate("/");
+        } catch (error) {
+          console.error("Error parsing data from localStorage:", error);
+        }
       }
     }
   };
+
   return (
     <TelegramContainer>
-      <TelegramSender>Sender. {sender}</TelegramSender>
-      {modify ? (
-        <ModifyContainer
-          modifyMessage={modifyMessage}
-          modMessage={modMessage}
-        />
-      ) : (
-        <MessageField>{message}</MessageField>
-      )}
-      <BtnContainer>
-        <Button onClick={modify ? setModified : setEditing}>
-          {modify ? "수정 완료" : "수정"}
-        </Button>
-        <Button
-          onClick={
-            modify
-              ? () => {
-                  setModify(false);
-                  setmodMessage(message);
-                }
-              : onDelete
-          }
-        >
-          {modify ? "취소" : "삭제"}
-        </Button>
-      </BtnContainer>
+      <ModifyContext.Provider value={{ modify, setModify }}>
+        <ModMessageContext.Provider value={{ modMessage, setModMessage }}>
+          <TelegramSender>Sender. {sender}</TelegramSender>
+          {modify ? (
+            <MessageEditingField />
+          ) : (
+            <MessageViewField>{message}</MessageViewField>
+          )}
+          <BtnContainer>
+            <Button onClick={modify ? handleSetModified : handleSetEditing}>
+              {modify ? "수정 완료" : "수정"}
+            </Button>
+            <Button onClick={handleCancelOrDelete}>
+              {modify ? "취소" : "삭제"}
+            </Button>
+          </BtnContainer>
+        </ModMessageContext.Provider>
+      </ModifyContext.Provider>
     </TelegramContainer>
   );
 }
 
 export default DetailBody;
+export const ModifyContext = createContext();
+export const ModMessageContext = createContext();

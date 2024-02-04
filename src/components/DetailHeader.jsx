@@ -1,9 +1,9 @@
 import { DetailBanner, GoHomeBtn, Title } from "./DetailStyles";
-import "../fonts.css";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { DataContext } from "../pages/Detail";
 
+//  DetailHeader.jsx
 function DetailHeader() {
   const { sender, receiver } = useContext(DataContext);
   const navigate = useNavigate();
