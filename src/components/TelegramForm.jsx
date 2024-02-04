@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { useNavigate, useParams } from "react-router-dom";
 import {
   FormContainer,
   FormReceiver,
@@ -9,12 +8,13 @@ import {
   SubmitBtn,
 } from "./HomeStyles";
 import getCurrentTime from "./modules/getCurrentTime";
-const DEFAULT_HEIGHT = 20;
+import dynamicHeight from "./modules/dynamicHeight";
+import { ReceiverContext } from "./HomeBody";
 
-function TelegramForm({ receiver }) {
+function TelegramForm() {
+  const { receiver } = useContext(ReceiverContext);
   const [message, setMessage] = useState("");
   const [nickname, setNickname] = useState("");
-  const navigate = useNavigate();
 
   const onMessageChange = (event) => {
     dynamicHeight(event);
@@ -22,12 +22,6 @@ function TelegramForm({ receiver }) {
   };
   const onNicknameChange = (event) => {
     setNickname(event.target.value);
-  };
-  const dynamicHeight = (event) => {
-    //  dynamic height
-    event.target.style.height = 0;
-    event.target.style.height =
-      DEFAULT_HEIGHT + event.target.scrollHeight + "px";
   };
 
   const addLocalStorage = () => {

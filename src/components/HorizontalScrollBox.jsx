@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import charactersDataList from "../shared/charactersDataList";
 import styled from "styled-components";
 import "../fonts.css";
 import { NameContainer } from "./HomeStyles";
+import { useContext } from "react";
+import { ReceiverContext } from "./HomeBody";
 
 const NameBox = styled.button`
   background-color: ${({ selected }) => (selected ? "#fca600" : "white")};
@@ -20,7 +20,9 @@ const NameBox = styled.button`
   }
 `;
 
-function HorizontalScrollBox({ setReceiver, receiver }) {
+function HorizontalScrollBox() {
+  const { setReceiver, receiver } = useContext(ReceiverContext);
+
   return (
     <NameContainer>
       {charactersDataList.map((character) => (

@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import TelegramForm from "./TelegramForm";
 import TelegramList from "./TelegramList";
 import HorizontalScrollBox from "./HorizontalScrollBox";
 
+export const ReceiverContext = createContext();
+
 function HomeBody() {
   const [receiver, setReceiver] = useState();
+
   return (
-    <>
-      <HorizontalScrollBox setReceiver={setReceiver} receiver={receiver} />
-      <TelegramForm receiver={receiver} />
-      <TelegramList about={receiver} />
-    </>
+    <ReceiverContext.Provider value={{ receiver, setReceiver }}>
+      <HorizontalScrollBox />
+      <TelegramForm />
+      <TelegramList />
+    </ReceiverContext.Provider>
   );
 }
 

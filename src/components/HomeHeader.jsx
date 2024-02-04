@@ -1,6 +1,3 @@
-import { useState } from "react";
-
-import "../fonts.css";
 import { Link } from "react-router-dom";
 import { HomeBanner, Title, SubTitle } from "./HomeStyles.jsx";
 

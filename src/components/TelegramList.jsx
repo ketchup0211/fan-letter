@@ -2,9 +2,12 @@ import { Telegrams, AlertMessage } from "./HomeStyles.jsx";
 import "../fonts.css";
 import TelegramBox from "./TelegramBox.jsx";
 import getLocalData from "./modules/getLocalData.jsx";
+import { useContext } from "react";
+import { ReceiverContext } from "./HomeBody.jsx";
 
-function TelegramList({ about }) {
-  const data = getLocalData(about);
+function TelegramList() {
+  const { receiver } = useContext(ReceiverContext);
+  const data = getLocalData(receiver);
   return (
     <>
       <Telegrams>
@@ -17,7 +20,7 @@ function TelegramList({ about }) {
                 message={message}
                 creationTime={creationTime}
                 id={id}
-                receiver={about}
+                receiver={receiver}
               ></TelegramBox>
             );
           })
