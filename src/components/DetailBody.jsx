@@ -5,12 +5,14 @@ import {
   BtnContainer,
   Button,
 } from "./DetailStyles";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ModifyContainer from "./ModifyContainer";
 import getLocalData from "./modules/getLocalData";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../pages/Detail";
 
-function DetailBody({ params, sender, message }) {
+function DetailBody() {
+  const { sender, receiver, message, id } = useContext(DataContext);
   const navigate = useNavigate();
   //  State for check modify-ing
   let [modify, setModify] = useState(false);
@@ -26,12 +28,12 @@ function DetailBody({ params, sender, message }) {
   };
   // Change Local Storage Data(Message)
   const setModified = () => {
-    const parsedData = getLocalData(params.receiver);
+    const parsedData = getLocalData(receiver);
     if (modMessage !== message) {
       const updatedData = parsedData.map((item) =>
-        item.id === params.id ? { ...item, message: modMessage } : item
+        item.id === id ? { ...item, message: modMessage } : item
       );
-      localStorage.setItem(params.receiver, JSON.stringify(updatedData));
+      localStorage.setItem(receiver, JSON.stringify(updatedData));
       alert("수정되었습니다.");
     } else {
       alert("아무런 수정사항이 없습니다.");
@@ -45,13 +47,13 @@ function DetailBody({ params, sender, message }) {
       "삭제하시겠습니까? (삭제한 전보는 되돌릴 수 없습니다)"
     );
     if (confirm) {
-      const data = localStorage.getItem(params.receiver);
+      const data = localStorage.getItem(receiver);
 
       if (data) {
         const parsedData = JSON.parse(data);
-        const updatedData = parsedData.filter((e) => e.id !== params.id);
+        const updatedData = parsedData.filter((e) => e.id !== id);
 
-        localStorage.setItem(params.receiver, JSON.stringify(updatedData));
+        localStorage.setItem(receiver, JSON.stringify(updatedData));
 
         navigate("/");
       }

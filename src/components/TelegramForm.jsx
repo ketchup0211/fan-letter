@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { v4 as uuid } from "uuid";
 import {
   FormContainer,
@@ -10,6 +10,9 @@ import {
 import getCurrentTime from "./modules/getCurrentTime";
 import dynamicHeight from "./modules/dynamicHeight";
 import { ReceiverContext } from "./HomeBody";
+
+export const MessageContext = createContext();
+export const NicknameContext = createContext();
 
 function TelegramForm() {
   const { receiver } = useContext(ReceiverContext);
