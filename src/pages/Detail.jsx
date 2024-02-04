@@ -12,10 +12,6 @@ function Detail() {
   const parsedData = getLocalData(params.receiver);
   const { sender, message } = parsedData.filter((e) => e.id === params.id)[0];
 
-  //  States
-  const [modify, setModify] = useState(false);
-  const [modMessage, setModMessage] = useState(message);
-
   let value = {
     sender: sender,
     receiver: params.receiver,
@@ -27,11 +23,7 @@ function Detail() {
   return (
     <DataContext.Provider value={value}>
       <DetailHeader />
-      <ModifyContext.Provider
-        value={{ modify, setModify, modMessage, setModMessage }}
-      >
-        <DetailBody />
-      </ModifyContext.Provider>
+      <DetailBody />
     </DataContext.Provider>
   );
 }
