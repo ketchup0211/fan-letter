@@ -6,12 +6,7 @@ import {
   Button,
 } from "./DetailStyles";
 import { useState } from "react";
-import {
-  modifyMessage,
-  letModified,
-  setOnModifing,
-  onDelete,
-} from "./modules/DetailFunctions";
+import { onDelete } from "./modules/DetailFunctions";
 import ModifyContainer from "./ModifyContainer";
 
 function DetailBody({ params, sender, message }) {
@@ -24,7 +19,25 @@ function DetailBody({ params, sender, message }) {
   const modifyMessage = (e) => {
     setmodMessage(e.target.value);
   };
+  const setEditing = () => {
+    setModify(true);
+  };
+  // Change Local Storage Data(Message)
+  const setModified = (params, modMessage, message) => {
+    const parsedData = getLocalData(params.receiver);
+    if (modMessage !== message) {
+      const updatedData = parsedData.map((item) =>
+        item.id === params.id ? { ...item, message: modMessage } : item
+      );
+      localStorage.setItem(params.receiver, JSON.stringify(updatedData));
+      alert("수정되었습니다.");
+    } else {
+      alert("아무런 수정사항이 없습니다.");
+    }
 
+    setModify(false);
+    goHome();
+  };
   return (
     <TelegramContainer>
       <TelegramSender>Sender. {sender}</TelegramSender>
@@ -39,9 +52,7 @@ function DetailBody({ params, sender, message }) {
       <BtnContainer>
         <Button
           onClick={
-            modify
-              ? letModified(params, modMessage, message)
-              : setOnModifing(setModify)
+            modify ? setModified(params, modMessage, message) : setEditing
           }
         >
           {modify ? "수정 완료" : "수정"}
