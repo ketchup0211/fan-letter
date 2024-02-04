@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Telegrams, AlertMessage } from "./HomeStyles.jsx";
 import "../fonts.css";
 import TelegramBox from "./TelegramBox.jsx";
@@ -10,14 +9,14 @@ function TelegramList({ about }) {
     <>
       <Telegrams>
         {data.length > 0 ? (
-          data.map((elements) => {
+          data.map(({ id, sender, message, creationTime }) => {
             return (
               <TelegramBox
-                key={elements.id}
-                sender={elements.sender}
-                message={elements.message}
-                creationTime={elements.creationTime}
-                id={elements.id}
+                key={id}
+                sender={sender}
+                message={message}
+                creationTime={creationTime}
+                id={id}
                 receiver={about}
               ></TelegramBox>
             );

@@ -1,8 +1,4 @@
-import { useState } from "react";
-import styled from "styled-components";
-import "../fonts.css";
-import { useNavigate, useParams } from "react-router-dom";
-const MAIN_COLOR = "#f6ebe2";
+import { useParams } from "react-router-dom";
 import DetailHeader from "../components/DetailHeader";
 import DetailBody from "../components/DetailBody";
 import goHome from "../components/modules/goHome";
@@ -15,14 +11,7 @@ function Detail() {
 
   // Data Check
   const parsedData = getLocalData(params.receiver);
-  if (!parsedData) {
-    console.log("No Data");
-    return;
-  } else {
-    const { sender, message, creationTime } = parsedData.filter(
-      (e) => e.id === params.id
-    )[0];
-  }
+  const { sender, message } = parsedData.filter((e) => e.id === params.id)[0];
 
   //  Main
   return (
