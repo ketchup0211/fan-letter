@@ -21,7 +21,6 @@ const NameBox = styled.button`
 `;
 
 function HorizontalScrollBox({ setReceiver, receiver }) {
-  let selected = false;
   return (
     <NameContainer>
       {charactersDataList.map((character) => (
