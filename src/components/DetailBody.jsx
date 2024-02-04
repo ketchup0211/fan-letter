@@ -14,7 +14,8 @@ import getLocalData from "./modules/getLocalData";
 //  DetailBody.jsx
 function DetailBody() {
   const { sender, receiver, message, id } = useContext(DataContext);
-  const { modify, setModify } = useContext(ModifyContext);
+  const { modify, setModify, modMessage, setModMessage } =
+    useContext(ModifyContext);
 
   const navigate = useNavigate();
 

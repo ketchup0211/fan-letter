@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DetailHeader from "../components/DetailHeader";
 import DetailBody from "../components/DetailBody";
@@ -7,12 +8,12 @@ import { DataContext, ModifyContext } from "../context/DetailContext";
 function Detail() {
   const params = useParams();
 
-  const [modify, setModify] = useState(false);
-  const [modMessage, setModMessage] = useState(message);
-
   // Data Check
   const parsedData = getLocalData(params.receiver);
   const { sender, message } = parsedData.filter((e) => e.id === params.id)[0];
+
+  const [modify, setModify] = useState(false);
+  const [modMessage, setModMessage] = useState(message);
 
   let value = {
     sender: sender,
@@ -26,7 +27,7 @@ function Detail() {
     <DataContext.Provider value={value}>
       <DetailHeader />
       <ModifyContext.Provider
-        value={(modify, setModify, modMessage, setModMessage)}
+        value={{ modify, setModify, modMessage, setModMessage }}
       >
         <DetailBody />
       </ModifyContext.Provider>

@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { FormContainer, FormReceiver, SubmitBtn } from "./HomeStyles";
-import { ReceiverContext } from "../context/HomeContext";
+import { ReceiverContext, FormContext } from "../context/HomeContext";
 import { v4 as uuid } from "uuid";
 import getCurrentTime from "./modules/getCurrentTime";
 import Message from "./FormMessage";
@@ -9,6 +9,7 @@ import Sender from "./FormSender";
 //  TelegramForm.jsx
 function TelegramForm() {
   const { receiver } = useContext(ReceiverContext);
+  const { message, nickname } = useContext(FormContext);
 
   const addLocalStorage = () => {
     const currentTime = getCurrentTime();
