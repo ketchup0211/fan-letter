@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { FormSender } from "./HomeStyles";
-import { NicknameContext } from "./TelegramForm";
+import { FormContext } from "../context/HomeContext";
 
 //  FormSender.jsx
 function Sender() {
-  const { nickname, setNickname } = useContext(NicknameContext);
+  const { nickname, setNickname } = useContext(FormContext);
 
   const onNicknameChange = (event) => {
     setNickname(event.target.value);

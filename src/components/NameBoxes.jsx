@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ReceiverContext } from "./HomeBody";
+import { ReceiverContext } from "../context/HomeContext";
 import charactersDataList from "../shared/charactersDataList";
 import styled from "styled-components";
 import "../fonts.css";

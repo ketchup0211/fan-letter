@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { ModifyField } from "./DetailStyles";
-import { ModMessageContext } from "./DetailBody";
+import { ModifyContext } from "../context/DetailContext";
 
 //  MessageEditingField.jsx
 function MessageEditingField() {
-  const { modMessage, setModMessage } = useContext(ModMessageContext);
+  const { modMessage, setModMessage } = useContext(ModifyContext);
 
   const handleModifyMessage = (e) => {
     setModMessage(e.target.value);

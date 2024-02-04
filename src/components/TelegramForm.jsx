@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { FormContainer, FormReceiver, SubmitBtn } from "./HomeStyles";
-import { ReceiverContext } from "./HomeBody";
+import { ReceiverContext } from "../context/HomeContext";
 import { v4 as uuid } from "uuid";
 import getCurrentTime from "./modules/getCurrentTime";
 import Message from "./FormMessage";
@@ -9,9 +9,6 @@ import Sender from "./FormSender";
 //  TelegramForm.jsx
 function TelegramForm() {
   const { receiver } = useContext(ReceiverContext);
-
-  const [message, setMessage] = useState("");
-  const [nickname, setNickname] = useState("");
 
   const addLocalStorage = () => {
     const currentTime = getCurrentTime();
@@ -31,17 +28,11 @@ function TelegramForm() {
   return (
     <FormContainer onSubmit={addLocalStorage}>
       <FormReceiver>To. {receiver} 님께</FormReceiver>
-      <MessageContext.Provider value={{ message, setMessage }}>
-        <Message />
-      </MessageContext.Provider>
-      <NicknameContext.Provider value={{ nickname, setNickname }}>
-        <Sender />
-      </NicknameContext.Provider>
+      <Message />
+      <Sender />
       <SubmitBtn type="submit">전송하기</SubmitBtn>
     </FormContainer>
   );
 }
 
-export const MessageContext = createContext();
-export const NicknameContext = createContext();
 export default TelegramForm;

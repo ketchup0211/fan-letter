@@ -1,11 +1,11 @@
-import { MessageContext } from "./TelegramForm";
+import { FormContext } from "../context/HomeContext";
 import { useContext } from "react";
 import { FormMessage } from "./HomeStyles";
 import dynamicHeight from "./modules/dynamicHeight";
 
 //  FormMessage.jsx
 function Message() {
-  const { message, setMessage } = useContext(MessageContext);
+  const { message, setMessage } = useContext(FormContext);
   const onMessageChange = (event) => {
     dynamicHeight(event);
     setMessage(event.target.value);

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ReceiverContext } from "./HomeBody.jsx";
+import { ReceiverContext } from "../context/HomeContext.jsx";
 import { Telegrams, AlertMessage } from "./HomeStyles.jsx";
 import TelegramBoxes from "./TelegramBoxes.jsx";
 import getLocalData from "./modules/getLocalData.jsx";

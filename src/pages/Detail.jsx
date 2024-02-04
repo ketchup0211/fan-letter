@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
-import { createContext } from "react";
 import DetailHeader from "../components/DetailHeader";
 import DetailBody from "../components/DetailBody";
 import getLocalData from "../components/modules/getLocalData";
+import { DataContext, ModifyContext } from "../context/DetailContext";
 
-export const DataContext = createContext();
 function Detail() {
   const params = useParams();
+
+  const [modify, setModify] = useState(false);
+  const [modMessage, setModMessage] = useState(message);
 
   // Data Check
   const parsedData = getLocalData(params.receiver);
@@ -23,7 +25,11 @@ function Detail() {
   return (
     <DataContext.Provider value={value}>
       <DetailHeader />
-      <DetailBody />
+      <ModifyContext.Provider
+        value={(modify, setModify, modMessage, setModMessage)}
+      >
+        <DetailBody />
+      </ModifyContext.Provider>
     </DataContext.Provider>
   );
 }

@@ -1,7 +1,7 @@
 import { DetailBanner, GoHomeBtn, Title } from "./DetailStyles";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { DataContext } from "../pages/Detail";
+import { DataContext } from "../context/DetailContext";
 
 //  DetailHeader.jsx
 function DetailHeader() {
