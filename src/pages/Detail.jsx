@@ -12,6 +12,7 @@ function Detail() {
   const parsedData = getLocalData(params.receiver);
   const { sender, message } = parsedData.filter((e) => e.id === params.id)[0];
 
+  //  States
   const [modify, setModify] = useState(false);
   const [modMessage, setModMessage] = useState(message);
 
