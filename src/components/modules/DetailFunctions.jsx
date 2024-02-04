@@ -1,15 +1,13 @@
+import getLocalData from "./getLocalData";
 import goHome from "./goHome";
 
-//  Modify-ing Message
-const modifyMessage = (e, setModMessage) => {
-  setmodMessage(e.target.value);
-};
-const setOnModifing = () => {
+const setOnModifing = (setModify) => {
   setModify(true);
 };
 
 // Change Local Storage Data(Message)
-const letModified = (modMessage, message) => {
+const letModified = (params, modMessage, message) => {
+  const parsedData = getLocalData(params.receiver);
   if (modMessage !== message) {
     const updatedData = parsedData.map((item) =>
       item.id === params.id ? { ...item, message: modMessage } : item

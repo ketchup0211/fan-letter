@@ -1,7 +1,6 @@
 import {
   TelegramContainer,
   TelegramSender,
-  ModifyField,
   MessageField,
   BtnContainer,
   Button,
@@ -13,6 +12,7 @@ import {
   setOnModifing,
   onDelete,
 } from "./modules/DetailFunctions";
+import ModifyContainer from "./ModifyContainer";
 
 function DetailBody({ params, sender, message }) {
   //  State for check modify-ing
@@ -20,25 +20,30 @@ function DetailBody({ params, sender, message }) {
   //  State for message modify
   let [modMessage, setmodMessage] = useState(message);
 
+  //  Modify-ing Message
+  const modifyMessage = (e) => {
+    setmodMessage(e.target.value);
+  };
+
   return (
     <TelegramContainer>
       <TelegramSender>Sender. {sender}</TelegramSender>
       {modify ? (
-        <ModifyField
-          type="text"
-          name="message"
-          maxLength={150}
-          value={modMessage}
-          onChange={modifyMessage(e, setmodMessage)}
-          placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
-          autoFocus
-          required
+        <ModifyContainer
+          modifyMessage={modifyMessage}
+          modMessage={modMessage}
         />
       ) : (
         <MessageField>{message}</MessageField>
       )}
       <BtnContainer>
-        <Button onClick={modify ? letModified : setOnModifing}>
+        <Button
+          onClick={
+            modify
+              ? letModified(params, modMessage, message)
+              : setOnModifing(setModify)
+          }
+        >
           {modify ? "수정 완료" : "수정"}
         </Button>
         <Button
