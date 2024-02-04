@@ -6,7 +6,7 @@ import HorizontalScrollBox from "./HorizontalScrollBox";
 export const ReceiverContext = createContext();
 
 function HomeBody() {
-  const [receiver, setReceiver] = useState();
+  const [receiver, setReceiver] = useState("침착맨");
 
   return (
     <ReceiverContext.Provider value={{ receiver, setReceiver }}>

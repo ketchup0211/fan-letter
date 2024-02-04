@@ -1,80 +1,47 @@
 import { createContext, useContext, useState } from "react";
-import { v4 as uuid } from "uuid";
-import {
-  FormContainer,
-  FormReceiver,
-  FormSender,
-  FormMessage,
-  SubmitBtn,
-} from "./HomeStyles";
-import getCurrentTime from "./modules/getCurrentTime";
-import dynamicHeight from "./modules/dynamicHeight";
+import { FormContainer, FormReceiver, SubmitBtn } from "./HomeStyles";
 import { ReceiverContext } from "./HomeBody";
+import { v4 as uuid } from "uuid";
+import getCurrentTime from "./modules/getCurrentTime";
+import Message from "./FormMessage";
+import Sender from "./FormSender";
 
-export const MessageContext = createContext();
-export const NicknameContext = createContext();
-
+//  TelegramForm.jsx
 function TelegramForm() {
   const { receiver } = useContext(ReceiverContext);
+
   const [message, setMessage] = useState("");
   const [nickname, setNickname] = useState("");
 
-  const onMessageChange = (event) => {
-    dynamicHeight(event);
-    setMessage(event.target.value);
-  };
-  const onNicknameChange = (event) => {
-    setNickname(event.target.value);
-  };
-
   const addLocalStorage = () => {
     const currentTime = getCurrentTime();
-    const id = uuid();
     const newData = {
       message,
       sender: nickname,
       creationTime: currentTime,
-      id,
+      id: uuid(),
     };
 
-    let oldData = JSON.parse(localStorage.getItem(receiver) || "[]");
-    oldData.unshift(newData);
+    const oldData = JSON.parse(localStorage.getItem(receiver) || "[]");
+    const updatedData = [newData, ...oldData];
 
-    localStorage.setItem(receiver, JSON.stringify(oldData));
-  };
-
-  const validCheck = () => {
-    !receiver ? window.alert("수신자를 선택해주세요") : addLocalStorage();
+    localStorage.setItem(receiver, JSON.stringify(updatedData));
   };
 
   return (
-    <FormContainer onSubmit={validCheck}>
-      <FormReceiver>To. {receiver || "NULL"} 님께</FormReceiver>
-      <FormMessage
-        type="text"
-        name="message"
-        placeholder="최대 150자(공백 포함) 까지만 작성 가능합니다."
-        onChange={onMessageChange}
-        maxLength={150}
-        value={message}
-        required
-      />
-      <FormSender>
-        From.{" "}
-        <input
-          type="text"
-          name="nickname"
-          placeholder="닉네임(최대 10자)"
-          autoComplete="off"
-          onChange={onNicknameChange}
-          maxLength={10}
-          value={nickname}
-          required
-        ></input>
-      </FormSender>
+    <FormContainer onSubmit={addLocalStorage}>
+      <FormReceiver>To. {receiver} 님께</FormReceiver>
+      <MessageContext.Provider value={{ message, setMessage }}>
+        <Message />
+      </MessageContext.Provider>
+      <NicknameContext.Provider value={{ nickname, setNickname }}>
+        <Sender />
+      </NicknameContext.Provider>
       <SubmitBtn type="submit">전송하기</SubmitBtn>
     </FormContainer>
   );
 }
 
+export const MessageContext = createContext();
+export const NicknameContext = createContext();
 export default TelegramForm;
