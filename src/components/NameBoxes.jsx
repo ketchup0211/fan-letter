@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { ReceiverContext } from "../context/HomeContext";
+import { useSelector, useDispatch } from "react-redux";
+import { configReceiver } from "../redux/modules/MainDataReducer";
 import charactersDataList from "../shared/charactersDataList";
 import styled from "styled-components";
 import "../fonts.css";
@@ -21,14 +21,14 @@ const NameButton = styled.button`
 
 //  NameBoxes.jsx
 function NameBoxes() {
-  const { setReceiver, receiver } = useContext(ReceiverContext);
-
+  const dispatch = useDispatch();
+  const receiver = useSelector((state) => state.MainDataReducer.receiver);
   return (
     <>
       {charactersDataList.map((character) => (
         <NameButton
           key={character}
-          onClick={() => setReceiver(character)}
+          onClick={() => dispatch(configReceiver(character))}
           selected={receiver === character}
         >
           {character}

@@ -1,15 +1,18 @@
-import { FormContext } from "../context/HomeContext";
-import { useContext } from "react";
 import { FormMessage } from "./HomeStyles";
 import dynamicHeight from "./modules/dynamicHeight";
+import { useSelector, useDispatch } from "react-redux";
+import { configMessage } from "../redux/modules/MainDataReducer";
 
 //  FormMessage.jsx
 function Message() {
-  const { message, setMessage } = useContext(FormContext);
+  const dispatch = useDispatch();
+  const message = useSelector((state) => state.MainDataReducer.message);
+
   const onMessageChange = (event) => {
     dynamicHeight(event);
-    setMessage(event.target.value);
+    dispatch(configMessage(event.target.value));
   };
+
   return (
     <FormMessage
       type="text"

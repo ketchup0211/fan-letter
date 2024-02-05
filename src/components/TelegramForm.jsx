@@ -1,21 +1,27 @@
-import { useContext } from "react";
 import { FormContainer, FormReceiver, SubmitBtn } from "./HomeStyles";
-import { ReceiverContext, FormContext } from "../context/HomeContext";
 import { v4 as uuid } from "uuid";
 import getCurrentTime from "./modules/getCurrentTime";
 import Message from "./FormMessage";
 import Sender from "./FormSender";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  configMessage,
+  configReceiver,
+  configSender,
+} from "../redux/modules/MainDataReducer";
 
 //  TelegramForm.jsx
 function TelegramForm() {
-  const { receiver } = useContext(ReceiverContext);
-  const { message, nickname } = useContext(FormContext);
+  const dispatch = useDispatch();
+  const { receiver, sender, message } = useSelector(
+    (state) => state.MainDataReducer
+  );
 
   const addLocalStorage = () => {
     const currentTime = getCurrentTime();
     const newData = {
       message,
-      sender: nickname,
+      sender,
       creationTime: currentTime,
       id: uuid(),
     };

@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { ReceiverContext } from "../context/HomeContext.jsx";
+import { useSelector } from "react-redux";
 import { Telegrams, AlertMessage } from "./HomeStyles.jsx";
 import TelegramBoxes from "./TelegramBoxes.jsx";
 import getLocalData from "./modules/getLocalData.jsx";
 
 function TelegramList() {
-  const { receiver } = useContext(ReceiverContext);
+  const receiver = useSelector((state) => state.MainDataReducer.receiver);
   const data = getLocalData(receiver);
 
   return (

@@ -1,14 +1,16 @@
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { FormSender } from "./HomeStyles";
-import { FormContext } from "../context/HomeContext";
+import { configSender } from "../redux/modules/MainDataReducer";
 
 //  FormSender.jsx
 function Sender() {
-  const { nickname, setNickname } = useContext(FormContext);
+  const dispatch = useDispatch();
+  const sender = useSelector((state) => state.MainDataReducer.sender);
 
-  const onNicknameChange = (event) => {
-    setNickname(event.target.value);
+  const onSenderChange = (event) => {
+    dispatch(configSender(event.target.value));
   };
+
   return (
     <FormSender>
       From.{" "}
@@ -17,9 +19,9 @@ function Sender() {
         name="nickname"
         placeholder="닉네임(최대 10자)"
         autoComplete="off"
-        onChange={onNicknameChange}
+        onChange={onSenderChange}
         maxLength={10}
-        value={nickname}
+        value={sender}
         required
       ></input>
     </FormSender>
