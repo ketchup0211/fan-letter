@@ -8,7 +8,7 @@ const Router = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/fan-letter" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="detail/:receiver/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
