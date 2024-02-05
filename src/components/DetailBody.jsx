@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModify, updateModMessage } from "../redux/modules/detailReducer";
-import { useContext } from "react";
-import { DataContext } from "../context/DetailContext";
 import {
   TelegramContainer,
   TelegramSender,
@@ -12,18 +9,22 @@ import {
 } from "./DetailStyles";
 import MessageEditingField from "./MessageEditingField";
 import getLocalData from "./modules/getLocalData";
+import { toggleMod, modifyMessage } from "../redux/modules/DetailModReducer";
+import { updateMessage } from "../redux/modules/DetailDataReducer";
 
 //  DetailBody.jsx
 function DetailBody() {
-  const { sender, receiver, id, message } = useContext(DataContext);
-  const dispatch = useDispatch();
-  const modify = useSelector((state) => state.detailReducer.modify);
-  const modMessage = useSelector((state) => state.detailReducer.modMessage);
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const modify = useSelector((state) => state.DetailModReducer.modify);
+  const { id, message, receiver, sender } = useSelector(
+    (state) => state.DetailDataReducer
+  );
+  const modMessage = useSelector((state) => state.DetailModReducer.message);
 
   const handleSetEditing = () => {
-    dispatch(toggleModify());
+    dispatch(toggleMod());
   };
 
   const handleSetModified = () => {
@@ -39,14 +40,15 @@ function DetailBody() {
       alert("아무런 수정사항이 없습니다.");
     }
 
-    dispatch(toggleModify());
+    dispatch(toggleMod());
     navigate("/");
   };
 
   const handleCancelOrDelete = () => {
     if (modify) {
-      dispatch(toggleModify());
-      dispatch(updateModMessage(message));
+      dispatch(toggleMod());
+      dispatch(updateMessage(message));
+      dispatch(modifyMessage(message));
     } else {
       const confirmation = window.confirm(
         "삭제하시겠습니까? (삭제한 전보는 되돌릴 수 없습니다)"

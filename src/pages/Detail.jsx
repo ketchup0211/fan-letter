@@ -1,30 +1,37 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DetailHeader from "../components/DetailHeader";
 import DetailBody from "../components/DetailBody";
 import getLocalData from "../components/modules/getLocalData";
-import { DataContext, ModifyContext } from "../context/DetailContext";
+import {
+  initSender,
+  initReceiver,
+  initMessage,
+  initID,
+} from "../redux/modules/DetailDataReducer";
+import { useDispatch } from "react-redux";
+import { initModMessage } from "../redux/modules/DetailModReducer";
 
 function Detail() {
   const params = useParams();
+  const dispatch = useDispatch();
 
   // Data Check
   const parsedData = getLocalData(params.receiver);
-  const { sender, message } = parsedData.filter((e) => e.id === params.id)[0];
+  const { sender, message, id } = parsedData.filter(
+    (e) => e.id === params.id
+  )[0];
 
-  let value = {
-    sender: sender,
-    receiver: params.receiver,
-    message: message,
-    id: params.id,
-  };
-
+  dispatch(initSender(sender));
+  dispatch(initReceiver(params.receiver));
+  dispatch(initMessage(message));
+  dispatch(initID(id));
+  dispatch(initModMessage(message));
   //  Main
   return (
-    <DataContext.Provider value={value}>
+    <>
       <DetailHeader />
       <DetailBody />
-    </DataContext.Provider>
+    </>
   );
 }
 

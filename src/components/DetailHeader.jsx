@@ -1,12 +1,11 @@
 import { DetailBanner, GoHomeBtn, Title } from "./DetailStyles";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { DataContext } from "../context/DetailContext";
+import { useSelector } from "react-redux";
 
 //  DetailHeader.jsx
 function DetailHeader() {
-  const { sender, receiver } = useContext(DataContext);
   const navigate = useNavigate();
+  const { sender, receiver } = useSelector((state) => state.DetailDataReducer);
   return (
     <DetailBanner>
       <GoHomeBtn onClick={() => navigate("/")}>홈으로</GoHomeBtn>

@@ -1,13 +1,14 @@
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ModifyField } from "./DetailStyles";
-import { ModifyContext } from "../context/DetailContext";
+import { modifyMessage } from "../redux/modules/DetailModReducer";
 
 //  MessageEditingField.jsx
 function MessageEditingField() {
-  const { modMessage, setModMessage } = useContext(ModifyContext);
+  const dispatch = useDispatch();
+  const modMessage = useSelector((state) => state.DetailModReducer.message);
 
   const handleModifyMessage = (e) => {
-    setModMessage(e.target.value);
+    dispatch(modifyMessage(e.target.value));
   };
   return (
     <ModifyField
