@@ -135,10 +135,14 @@ const TelegramContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 const ProfileImg = styled.img`
-  border-radius: 360px;
+  border-radius: 50%;
   margin: 20px;
   width: 100px;
   height: 100px;
@@ -168,7 +172,6 @@ const Message = styled.p`
   font-size: 16px;
   overflow-x: hidden;
   white-space: nowrap;
-  overflow-x: hidden;
   text-overflow: ellipsis;
 `;
 
