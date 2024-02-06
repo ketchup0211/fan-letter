@@ -17,7 +17,8 @@ function TelegramForm() {
     (state) => state.MainDataReducer
   );
 
-  const addLocalStorage = () => {
+  const addLocalStorage = (event) => {
+    event.preventDefault();
     const currentTime = getCurrentTime();
     const newData = {
       message,
